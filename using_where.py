@@ -1,4 +1,3 @@
-from os import truncate
 from pyspark.sql import SparkSession
 from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 from pyspark.sql.functions import array_contains, col
@@ -39,4 +38,5 @@ df.where(col("state") != "UP").show(truncate=False)
 df.where((col("state") == "UP") & (col("gender") == "F")).show(truncate=False)
 df.where(array_contains(col("languages"),"Azure")).show(truncate=False)
 df.where(col("name.lastname") == "Tripathi").show(truncate=False)
+
 spark.stop()
