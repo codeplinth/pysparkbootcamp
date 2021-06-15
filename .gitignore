@@ -1,3 +1,5 @@
 .vscode
 .git
-.spark-warehouse
+spark-warehouse
+metastore_db
+derby.log

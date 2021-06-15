@@ -16,7 +16,7 @@ spark.sql("""CREATE TABLE us_flight_delays_tbl(
                 origin STRING,
                 destination STRING)
             USING CSV
-            OPTIONS(PATH='data/departuredelays.csv',HEADER=True)""")
+            OPTIONS(PATH='data/flight_data/csv/departuredelays.csv',HEADER=True)""")
 
 spark.sql("SELECT * FROM us_flight_delays_tbl").show(5)
 
@@ -28,12 +28,12 @@ flight_df=(
     spark.read.format("csv")
     .option("header","True")
     .schema("date STRING,delay INT,distance INT,origin STRING,destination STRING")
-    .load("data/departuredelays.csv")
+    .load("data/flight_data/csv/departuredelays.csv")
 )
 
 (
     flight_df.write
-    .option("path","/tmp/data/us_flight/data")
+    .option("path","/tmp/data/us_flight_data")
     .saveAsTable("us_flight_delays_tbl_unmanaged")
 )
 
