@@ -63,6 +63,24 @@ spark.sql("select * from managed_us_delay_flights_tbl").show()
 
 df.write.saveAsTable("managed_us_delay_flights_tbl_using_df",mode="overwrite")
 
+spark.sql("""
+create table if not exists us_delay_flights_tbl(
+        date timestamp,
+        delay int,
+        distance int,
+        origin string,
+        destination string
+)
+using csv
+options(path='data/flight_data/csv/departuredelays.csv',header=True,timestampFormat='MMddHHmm',mode='overwrite')
+""")
+
+spark.sql("select * from us_delay_flights_tbl").show()
+
+print(spark.catalog.listTables())
+
+df.write.option("path","tmp/data/flight_data/").saveAsTable("us_delay_flights_tbl_using_df",mode="overwrite")
+
 print(spark.catalog.listTables())
 
 spark.stop()
